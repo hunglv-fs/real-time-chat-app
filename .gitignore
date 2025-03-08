@@ -1,0 +1,39 @@
+# 🛑 Ignore node_modules and dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# 🛑 Ignore environment variables
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# 🛑 Ignore log files
+logs/
+*.log
+*.out
+*.err
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 🛑 Ignore editor & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# 🛑 Ignore build artifacts (Next.js & Express)
+frontend/.next
+frontend/out/
+backend/dist/
+backend/build/
+# 🛑 Ignore Docker volumes & overrides
+docker-compose.override.yml
+mongodb_data/

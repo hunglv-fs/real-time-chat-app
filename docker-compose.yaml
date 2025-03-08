@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  mongodb:
+    image: mongo:6
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - mongodb_data:/data/db
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.express
+    container_name: backend
+    restart: always
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+    environment:
+      MONGO_URI: "mongodb://admin:password@mongodb:27017/mydatabase"
+    volumes:
+      - ./backend:/app
+    command: ["node", "server.js"]
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.nextjs
+    container_name: frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+    environment:
+      API_URL: "http://backend:5000"
+
+volumes:
+  mongodb_data:
